@@ -1,39 +1,37 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import './LoginPage.css'; // We will create this CSS file next
 
-const LoginPage = () => {
+// This is the main login component
+export default function LoginPage() {
+  // State to hold the user's input
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
+  // State for handling errors and loading status
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  
+  // Hook to navigate the user after login
   const navigate = useNavigate();
 
+  // Function to handle form submission
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevents the form from refreshing the page
+    e.preventDefault(); // Prevent page from reloading
     setLoading(true);
     setError('');
 
     try {
-      // Send the login request to your backend API
-      const response = await axios.post('/api/users/login', {
-        email,
-        password,
-      });
-
-      // If login is successful, the backend sends back a token
-      const { token } = response.data;
-
-      // Store the token in localStorage to keep the user logged in
-      localStorage.setItem('token', token);
-
-      // Redirect the user to their dashboard
-      navigate('/dashboard');
+      // Send login request to your backend
+      const response = await axios.post('/api/users/login', { email, password });
+      
+      // If successful, save the token and redirect to the dashboard
+      localStorage.setItem('token', response.data.token);
+      navigate('/dashboard'); // Redirect to the main app dashboard
 
     } catch (err) {
-      // If there's an error, display it to the user
-      const errorMessage = err.response?.data?.message || 'Login failed. Please try again.';
+      // If login fails, show an error message
+      const errorMessage = err.response?.data?.message || 'Login failed. Please check your credentials.';
       setError(errorMessage);
     } finally {
       setLoading(false);
@@ -41,42 +39,81 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleLogin}>
-        <h2>Login to Your Portal</h2>
+    // Main container to center the form on the page
+    // I've used bg-gray-50 to match the background of your landing page
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center px-4">
+      
+      {/* Link to go back to the homepage */}
+      <div className="text-xl font-bold text-teal-700 mb-6">
+        <Link to="/">FarmGuard</Link>
+      </div>
+
+      {/* The form container with styling that matches your landing page's cards */}
+      <div className="max-w-md w-full bg-white rounded-xl shadow-md p-8">
         
-        <div className="input-group">
-          <label htmlFor="email">Email Address</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+          Welcome Back
+        </h2>
 
-        <div className="input-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
+        <form onSubmit={handleLogin}>
+          {/* Email Input */}
+          <div className="mb-6">
+            <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500 transition-colors"
+              placeholder="you@farm.com"
+              required
+            />
+          </div>
 
-        {error && <p className="error-message">{error}</p>}
+          {/* Password Input */}
+          <div className="mb-6">
+            <label htmlFor="password" className="block text-gray-700 font-medium mb-2">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500 transition-colors"
+              placeholder="••••••••"
+              required
+            />
+          </div>
 
-        <button type="submit" className="login-button" disabled={loading}>
-          {loading? 'Logging in...' : 'Login'}
-        </button>
-      </form>
+          {/* Display error message if login fails */}
+          {error && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative mb-6" role="alert">
+              <span className="block sm:inline">{error}</span>
+            </div>
+          )}
+
+          {/* Login Button */}
+          {/* The button style matches the "Get Started" button from your landing page */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-4 rounded-full transition-colors disabled:bg-teal-400"
+          >
+            {loading? 'Logging in...' : 'Login'}
+          </button>
+        </form>
+
+        {/* Link to Sign Up page */}
+        <p className="text-center text-gray-600 mt-6">
+          Don't have an account?{' '}
+          <Link to="/signup" className="text-teal-600 hover:underline font-medium">
+            Sign Up
+          </Link>
+        </p>
+      </div>
     </div>
   );
-};
-
-export default LoginPage;
+}
