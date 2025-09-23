@@ -1,4 +1,6 @@
-import './App.css'
+import React from 'react';
+import './App.css';
+import Navbar from './components/Navbar';
 
 
 export default function App() {
@@ -102,7 +104,7 @@ export default function App() {
 
         <section className="callout" id="get-started">
           <div className="callout-inner">
-// ...existing code...
+
             <h2>Ready to protect your farm?</h2>
             <p className="muted">Sign up for a free pilot, or request a demo for your region.</p>
             <div className="cta-row">
@@ -122,5 +124,7 @@ export default function App() {
         </nav>
       </footer>
     </div>
+
+
   )
 }
