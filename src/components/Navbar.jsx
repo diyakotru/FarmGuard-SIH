@@ -12,7 +12,7 @@ export default function Navbar() {
           {/* Logo / Brand */}
           <div className="flex items-center">
             <Link to="/" className="text-2xl font-bold">
-              MyBrand
+              FarmGuard
             </Link>
           </div>
 
@@ -23,12 +23,7 @@ export default function Navbar() {
             <Link to="/about" className="hover:text-gray-200">
               About
             </Link>
-            <Link to="/services" className="hover:text-gray-200">
-              Services
-            </Link>
-            <Link to="/contact" className="hover:text-gray-200">
-              Contact
-            </Link>
+
           </div>
         </div>
         </div>
