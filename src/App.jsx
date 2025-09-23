@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './App.css';
 import heroImg from './assets/hero image.avif';
@@ -85,7 +86,7 @@ export default function App() {
               <div className="flex flex-col md:flex-row items-center md:space-x-8 p-4 md:p-0">
                 <a href="#core-features" className="py-2 text-gray-700 hover:text-teal-700 font-medium" onClick={() => setMenuOpen(false)}>Features</a>
                 <a href="#how" className="py-2 text-gray-700 hover:text-teal-700 font-medium" onClick={() => setMenuOpen(false)}>How it works</a>
-                <a href="#get-started" className="btn bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 px-6 rounded-full transition-colors" onClick={() => setMenuOpen(false)}>Get Started</a>
+                <Link to="/LoginPage" className="btn bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 px-6 rounded-full transition-colors" onClick={() => setMenuOpen(false)}>Login/SignUp</Link>
               </div>
             </nav>
           </div>
