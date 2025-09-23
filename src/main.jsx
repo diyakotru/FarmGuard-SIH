@@ -1,18 +1,20 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import './i18n';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import LoginPage from './pages/LoginPage.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import App from './App.jsx';
+import './index.css';
+import './i18n.js';
+import LoginPage from './pages/LoginPage.jsx';
+import SignUp from './pages/SignUp.jsx';
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/LoginPage" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
-  </StrictMode>,
-)
+  </React.StrictMode>
+);

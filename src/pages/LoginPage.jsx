@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // This is the main login component
 export default function LoginPage() {
+  useEffect(()=>{
+    console.log('LoginPage mounted')
+  },[])
   // State to hold the user's input
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
