@@ -7,6 +7,26 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## About this project
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+This workspace contains a simple landing page for "FarmGuard", a prototype front-end for a biosecurity management platform for pig and poultry farms. The landing page highlights features like Risk Assessment Tools, Interactive Training, Compliance Tracking, Real-Time Alerts, multilingual and mobile-friendly design.
+
+## Running locally
+
+This project uses Vite + React. To run the development server:
+
+1. Install dependencies:
+
+```powershell
+npm install
+```
+
+2. Start the dev server:
+
+```powershell
+npm run dev
+```
+
+Open the URL shown in the terminal (usually http://localhost:5173) to see the landing page.
+
+Feel free to adapt the components and styles in `src/App.jsx` and `src/App.css` to turn this into a full app.
