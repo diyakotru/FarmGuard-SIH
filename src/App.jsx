@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './App.css';
 import heroImg from './assets/hero image.avif';
 
@@ -19,27 +20,64 @@ function avatarDataUrl(name, bg = '#e6fff8', fg = '#0f766e') {
 // The main App component containing the entire landing page
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { i18n, t } = useTranslation();
+  const [langOpen, setLangOpen] = useState(false);
+  const languages = [
+    { code: 'en', label: 'English' },
+    { code: 'hi', label: 'हिंदी' },
+    { code: 'te', label: 'తెలుగు' }
+  ];
+
 
   return (
     <>
-    {/* external CSS controls visuals */}
+      {/* external CSS controls visuals */}
       <div className="bg-gray-50 font-sans antialiased text-gray-800">
 
         {/* Header */}
         <header className="sticky top-0 z-50 bg-white shadow-sm py-4">
           <div className="container mx-auto px-4 flex justify-between items-center">
             <div className="text-xl font-bold text-teal-700">FarmGuard</div>
-            <button
-              className={`md:hidden flex flex-col gap-1 w-6 h-6 justify-center items-center ${menuOpen ? 'open' : ''}`}
-              aria-controls="primary-navigation"
-              aria-expanded={menuOpen}
-              onClick={() => setMenuOpen(!menuOpen)}
-            >
-              <span className="sr-only">Toggle navigation</span>
-              <span className="bar"></span>
-              <span className="bar"></span>
-              <span className="bar"></span>
-            </button>
+            <div className="flex items-center gap-4">
+              <button
+                className={`md:hidden flex flex-col gap-1 w-6 h-6 justify-center items-center ${menuOpen ? 'open' : ''}`}
+                aria-controls="primary-navigation"
+                aria-expanded={menuOpen}
+                onClick={() => setMenuOpen(!menuOpen)}
+              >
+                <span className="sr-only">Toggle navigation</span>
+                <span className="bar"></span>
+                <span className="bar"></span>
+                <span className="bar"></span>
+              </button>
+              {/* Language Dropdown at the end */}
+              <div className="relative">
+                <button
+                  onClick={() => setLangOpen(!langOpen)}
+                  className="flex items-center px-3 py-2 bg-[var(--primary)] hover:bg-[var(--primary-600)] text-white rounded-full shadow-sm border border-gray-200 font-medium focus:outline-none"
+                  aria-haspopup="listbox"
+                  aria-expanded={langOpen}
+                  style={{ minWidth: '110px' }}
+                >
+                  <span className="mr-2">{languages.find(l => l.code === i18n.language)?.label || t('language')}</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                {langOpen && (
+                  <ul className="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                    {languages.map(lang => (
+                      <li key={lang.code}>
+                        <button
+                          onClick={() => { i18n.changeLanguage(lang.code); setLangOpen(false); }}
+                          className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${i18n.language === lang.code ? 'bg-[var(--primary-600)] text-white font-semibold' : ''}`}
+                        >
+                          {lang.label}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
             <nav id="primary-navigation" className={`top-nav absolute md:static top-full left-0 w-full md:w-auto bg-white md:bg-transparent transition-all duration-300 ${menuOpen ? 'translate-y-0 opacity-100 visible' : '-translate-y-4 opacity-0 invisible md:visible md:translate-y-0 md:opacity-100'}`} aria-label="Primary">
               <div className="flex flex-col md:flex-row items-center md:space-x-8 p-4 md:p-0">
                 <a href="#core-features" className="py-2 text-gray-700 hover:text-teal-700 font-medium" onClick={() => setMenuOpen(false)}>Features</a>
@@ -47,6 +85,7 @@ export default function App() {
                 <a href="#get-started" className="btn bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 px-6 rounded-full transition-colors" onClick={() => setMenuOpen(false)}>Get Started</a>
               </div>
             </nav>
+            
           </div>
         </header>
 
