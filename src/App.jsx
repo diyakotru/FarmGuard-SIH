@@ -7,7 +7,7 @@ import heroImg from './assets/hero image.avif';
 function initials(name) {
   if (!name) return '';
   const parts = name.trim().split(/\s+/);
-  const chars = parts.length === 1 ? parts[0].slice(0,2) : parts.slice(0,2).map(p=>p[0]);
+  const chars = parts.length === 1 ? parts[0].slice(0, 2) : parts.slice(0, 2).map(p => p[0]);
   return chars.join('').toUpperCase();
 }
 
@@ -28,10 +28,8 @@ export default function App() {
     { code: 'te', label: 'తెలుగు' }
   ];
 
-
   return (
     <>
-      {/* external CSS controls visuals */}
       <div className="bg-gray-50 font-sans antialiased text-gray-800">
 
         {/* Header */}
@@ -50,6 +48,7 @@ export default function App() {
                 <span className="bar"></span>
                 <span className="bar"></span>
               </button>
+
               {/* Language Dropdown at the end */}
               <div className="relative">
                 <button
@@ -78,19 +77,31 @@ export default function App() {
                 )}
               </div>
             </div>
-            <nav id="primary-navigation" className={`top-nav absolute md:static top-full left-0 w-full md:w-auto bg-white md:bg-transparent transition-all duration-300 ${menuOpen ? 'translate-y-0 opacity-100 visible' : '-translate-y-4 opacity-0 invisible md:visible md:translate-y-0 md:opacity-100'}`} aria-label="Primary">
+            <nav
+              id="primary-navigation"
+              className={`top-nav absolute md:static top-full left-0 w-full md:w-auto bg-white md:bg-transparent transition-all duration-300 ${menuOpen ? 'translate-y-0 opacity-100 visible' : '-translate-y-4 opacity-0 invisible md:visible md:translate-y-0 md:opacity-100'}`}
+              aria-label="Primary"
+            >
               <div className="flex flex-col md:flex-row items-center md:space-x-8 p-4 md:p-0">
                 <a href="#core-features" className="py-2 text-gray-700 hover:text-teal-700 font-medium" onClick={() => setMenuOpen(false)}>Features</a>
                 <a href="#how" className="py-2 text-gray-700 hover:text-teal-700 font-medium" onClick={() => setMenuOpen(false)}>How it works</a>
                 <a href="#get-started" className="btn bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 px-6 rounded-full transition-colors" onClick={() => setMenuOpen(false)}>Get Started</a>
               </div>
             </nav>
-            
           </div>
         </header>
 
         {/* Hero Banner */}
-        <header className="hero-banner text-white text-center py-24 md:py-48" role="banner" style={{ backgroundImage: `url(${heroImg})` }}>
+        <header
+          className="hero-banner text-white text-center py-24 md:py-48"
+          role="banner"
+          style={{
+            backgroundImage: `url(${heroImg})`,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+          }}
+        >
           <div className="container mx-auto px-4">
             <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4">Digital Biosecurity for Safer Farms</h1>
             <p className="text-lg md:text-xl font-light max-w-2xl mx-auto mb-8">Protect poultry & livestock with simple tools, real-time alerts, and digital records.</p>
