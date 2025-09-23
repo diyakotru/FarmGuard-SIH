@@ -43,6 +43,30 @@ const registerNewUserAndFarm = async (userData) => {
   return { user: savedUser, farm: savedFarm, token };
 };
 
+const loginUser = async (email, password) => {
+  // 1. Find the user by their email
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new Error('Invalid credentials. User not found.');
+  }
+
+  // 2. Compare the provided password with the hashed password in the database
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    throw new Error('Invalid credentials. Password does not match.');
+  }
+
+  // 3. If passwords match, create a JWT token
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: '30d',
+  });
+
+  // 4. Return the user and the token
+  return { user, token };
+};
+
 module.exports = {
   registerNewUserAndFarm,
+  loginUser, // Export the new function
 };
+
