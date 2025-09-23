@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // This is the main sign-up component
 export default function SignUpPage() {
+  const { login } = useAuth();
   // A single state object to hold all form data
   const [formData, setFormData] = useState({
     fullName: '',
@@ -41,9 +43,10 @@ export default function SignUpPage() {
       // Send sign-up request to your backend
       const response = await axios.post('/api/users/register', formData);
 
-      // If successful, save the token and redirect to the dashboard
-      localStorage.setItem('token', response.data.token);
-      navigate('/dashboard'); // Redirect to the main app dashboard
+  // If successful, save the token, set user, and redirect to the dashboard
+  localStorage.setItem('token', response.data.token);
+  login(response.data.user || { email: formData.email, fullName: formData.fullName });
+  navigate('/dashboard'); // Redirect to the main app dashboard
 
     } catch (err) {
       // If sign-up fails, show an error message
