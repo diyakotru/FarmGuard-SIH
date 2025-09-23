@@ -8,11 +8,7 @@ export default function App() {
     <div className="app-root">
       <header className="site-header">
         <div className="logo">FarmGuard</div>
-        <nav className="top-nav" aria-label="Primary">
-          <a href="#learn-more">Features</a>
-          <a href="#get-started">Get started</a>
-          <a href="#contact">Contact</a>
-        </nav>
+        <Navbar />
       </header>
 
       <header className="hero" role="banner">
