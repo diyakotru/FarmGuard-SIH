@@ -3,8 +3,19 @@ import './App.css';
 import Navbar from './components/Navbar';
 
 
+function avatarDataUrl(name, bg = '#e6fff8', fg = '#0f766e') {
+  const label = initials(name) || 'U';
+  const svg = `<?xml version="1.0" encoding="UTF-8"?><svg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'><rect width='100%' height='100%' fill='${bg}' rx='16' ry='16'/><text x='50%' y='50%' font-family='Inter, Arial, sans-serif' font-size='36' fill='${fg}' dominant-baseline='middle' text-anchor='middle'>${label}</text></svg>`;
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+}
+
+// The main App component containing the entire landing page
 export default function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
+
+
     <div className="app-root">
       <header className="site-header">
         <div className="logo">FarmGuard</div>
@@ -19,82 +30,133 @@ export default function App() {
           <div className="hero-ctas">
             <a className="btn primary" href="#get-started">Request a demo</a>
             <a className="btn ghost" href="#learn-more">Explore features</a>
+
           </div>
+        </header>
 
-          <p className="note">Trusted by community programs and local veterinarians — designed for on-farm practicality.</p>
-        </div>
-
-        <div className="hero-illustration" aria-hidden="true">
-          {/* simple, lightweight SVG illustration */}
-          <svg width="360" height="220" viewBox="0 0 360 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-            <rect x="0" y="0" width="360" height="220" rx="12" fill="url(#g)" />
-            <defs>
-              <linearGradient id="g" x1="0" x2="1">
-                <stop offset="0" stopColor="#F0FDFA" />
-                <stop offset="1" stopColor="#E6FFF8" />
-              </linearGradient>
-            </defs>
-            <g transform="translate(18,28)" fill="#0F766E">
-              <rect x="0" y="64" width="120" height="56" rx="8" fill="#0F766E" opacity="0.08" />
-              <path d="M10 64c0-10 8-18 18-18h52v18H10z" fill="#0F766E" opacity="0.12" />
-              <circle cx="190" cy="82" r="22" fill="#0EA5A1" opacity="0.14" />
-            </g>
-            <g transform="translate(28,40)" fill="#065F54">
-              <rect x="0" y="80" width="60" height="28" rx="4" />
-              <rect x="80" y="72" width="90" height="36" rx="6" />
-              <circle cx="250" cy="64" r="10" />
-            </g>
-          </svg>
-        </div>
-      </header>
-
-      <main>
-        <section className="features" id="learn-more" aria-labelledby="features-heading">
-          <h2 id="features-heading">Key features</h2>
-          <div className="grid">
-            <Feature id="f1" title="Risk Assessment Tools" icon={<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2v6" stroke="#047857" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/><path d="M4 22c0-4 4-8 8-8s8 4 8 8" stroke="#047857" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>}>
-              Assess on-farm disease risk with quick, localised questionnaires and get clear prioritized actions.
-            </Feature>
-
-            <Feature id="f2" title="Interactive Training" icon={<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="12" rx="2" stroke="#0F766E" strokeWidth="1.6"/><path d="M7 8h10" stroke="#0F766E" strokeWidth="1.6" strokeLinecap="round"/></svg>}>
-              Short, illustrated lessons that demonstrate simple daily biosecurity routines for farm workers.
-            </Feature>
-
-            <Feature id="f3" title="Compliance & Reporting" icon={<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#0EA5A1" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>}>
-              Digital checklists, timestamps and exportable reports to document inspections and compliance steps.
-            </Feature>
-
-            <Feature id="f4" title="Real-time Alerts" icon={<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2v4" stroke="#047857" strokeWidth="1.6" strokeLinecap="round"/><path d="M6 10c0-3 3-5 6-5s6 2 6 5v5c0 2-1 4-6 4s-6-2-6-4v-5z" stroke="#047857" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>}>
-              Get alerts for nearby outbreaks and on-farm anomalies so you can act quickly and confidently.
-            </Feature>
-
-            <Feature id="f5" title="Mobile & Multilingual" icon={<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="6" y="2" width="12" height="20" rx="3" stroke="#0EA5A1" strokeWidth="1.6"/><path d="M9 7h6" stroke="#0EA5A1" strokeWidth="1.6" strokeLinecap="round"/></svg>}>
-              Local language support with a lightweight, mobile-first UI that works well on slow connections.
-            </Feature>
-
-            <Feature id="f6" title="Offline-first" icon={<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3" stroke="#047857" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>}>
-              Core functionality works offline and syncs when a connection becomes available.
-            </Feature>
+        {/* Hero Banner */}
+        <header className="hero-banner text-white text-center py-24 md:py-48" role="banner" style={{ backgroundImage: `url(${heroImg})` }}>
+          <div className="container mx-auto px-4">
+            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4">Digital Biosecurity for Safer Farms</h1>
+            <p className="text-lg md:text-xl font-light max-w-2xl mx-auto mb-8">Protect poultry & livestock with simple tools, real-time alerts, and digital records.</p>
+            <div className="flex justify-center space-x-4">
+              <a className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-full transition-colors cta-pulse" href="#get-started">Start Protecting Your Farm</a>
+            </div>
           </div>
+        </header>
+        
+        <main>
+          {/* Core Features */}
+          <section id="core-features" className="py-16 md:py-24">
+            <div className="container mx-auto px-4 text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Core Features</h2>
+              <p className="text-gray-600 max-w-3xl mx-auto mb-12">What we offer to keep your farm safe and productive.</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <FeatureItem
+                  icon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>}
+                  title="Risk Assessment & Advice"
+                  description="Quick surveys with prioritized actions." />
 
-          <div className="multilingual">
-            <strong>Also:</strong> printable checklists, simple dashboards, and local language help.
-          </div>
-        </section>
+                <FeatureItem
+                  icon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8a6 6 0 0 0-12 0v4l-2 2v1h16v-1l-2-2V8"/></svg>}
+                  title="Real-Time Outbreak Alerts"
+                  description="Local and regional alerts to act fast." />
 
-        {/* Testimonial Section */}
-        <section className="testimonial-section">
-          <div className="testimonial-inner">
-            <blockquote className="testimonial-quote">
-              "FarmGuard has made it so much easier for our team to follow biosecurity routines. The checklists and alerts are practical and easy to use, even for those who aren't tech-savvy."
-            </blockquote>
-            <div className="testimonial-author">
-              <div className="testimonial-avatar" aria-hidden="true"></div>
-              <div>
-                <div className="testimonial-name">A. Sharma</div>
-                <div className="testimonial-role">Farm Owner, Punjab</div>
+                <FeatureItem
+                  icon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11"/></svg>}
+                  title="Compliance & Training Tools"
+                  description="Digital checklists and short training modules." />
+
+                {/* center the 4th feature on its own row */}
+                <div className="lg:col-span-3 flex justify-center">
+                  <div className="w-full max-w-sm">
+                    <FeatureItem
+                      icon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="M7 13l3 3 7-7"/></svg>}
+                      title="Data for Smarter Decisions"
+                      description="Simple dashboards and exportable reports." />
+                  </div>
+                </div>
               </div>
             </div>
+          </section>
+
+          {/* How It Works */}
+          <section id="how" className="bg-gray-100 py-16 md:py-24">
+            <div className="container mx-auto px-4 text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">How it works</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto mb-12">A simple, three-step process to a safer farm.</p>
+              <div className="how-line">
+                <HowItWorksStep step="1" title="Assess your farm" description="Run guided checks and get a prioritized plan." />
+                <HowItWorksStep step="2" title="Get guidance & alerts" description="Receive local alerts and action steps." />
+                <HowItWorksStep step="3" title="Track compliance digitally" description="Keep logs and reports for audits and decisions." />
+              </div>
+            </div>
+          </section>
+
+          {/* Testimonials */}
+          <section className="py-16 md:py-24 bg-white">
+            <div className="container mx-auto px-4 text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-12">What Our Users Say</h2>
+              <div className="testimonials-grid">
+                <Testimonial quote="FarmGuard helped us standardize sanitation across several units — our flock health improved noticeably." name="Priya Sharma" role="Poultry Farmer" />
+                <Testimonial quote="The real-time alerts helped us isolate an issue before it spread across pens." name="Ramesh Kumar" role="Farm Manager" />
+                <Testimonial quote="Digital records made reporting to our cooperative much faster and more accurate." name="Ananya Gupta" role="Biosecurity Lead" />
+              </div>
+            </div>
+          </section>
+
+          {/* Final CTA */}
+          <section id="get-started" className="py-16 md:py-24 bg-teal-700 text-white text-center">
+            <div className="container mx-auto px-4">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Join the movement for safer farming.</h2>
+              <p className="text-gray-200 max-w-3xl mx-auto mb-8">Ready to take control of your farm's biosecurity? Get started with FarmGuard today.</p>
+              <a className="bg-white text-teal-700 font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-shadow" href="#">Start Now</a>
+            </div>
+          </section>
+        </main>
+
+        {/* Footer */}
+        <footer className="site-footer">
+          <div className="footer-inner">
+            <div className="footer-grid">
+              <div className="footer-brand">
+                <div className="text-2xl font-bold">FarmGuard</div>
+                <p className="mt-3 text-sm">Protecting poultry & livestock with simple, actionable biosecurity tools. Mobile-friendly, field-ready.</p>
+                <div className="mt-4 social">
+                  <a href="#" aria-label="Facebook"> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 2h-3a4 4 0 0 0-4 4v3H8v4h3v8h4v-8h3l1-4h-4V6a1 1 0 0 1 1-1h3V2z" fill="currentColor"/></svg> </a>
+                  <a href="#" aria-label="X"> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23 4.5L19.5 8 23 11.5 20.5 14 17 10.5 13.5 14 11 11.5 14.5 8 11 4.5 13.5 2 17 5.5 20.5 2 23 4.5Z" fill="currentColor"/></svg> </a>
+                </div>
+              </div>
+
+              <div className="footer-links">
+                <h4>Product</h4>
+                <ul>
+                  <li><a href="#core-features">Features</a></li>
+                  <li><a href="#how">How it works</a></li>
+                  <li><a href="#get-started">Get Started</a></li>
+                </ul>
+              </div>
+
+              <div className="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                  <li><a href="#">Guides</a></li>
+                  <li><a href="#">Support</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                </ul>
+              </div>
+
+              <div className="footer-contact">
+                <h4>Get updates</h4>
+                <p className="text-sm">Subscribe to occasional product updates and best practices.</p>
+                <form className="newsletter" onSubmit={(e)=>e.preventDefault()}>
+                  <input type="email" placeholder="you@farm.com" aria-label="email" />
+                  <button className="btn primary" type="submit">Subscribe</button>
+                </form>
+                <div className="mt-4 text-sm">Contact: <a href="mailto:hello@farmguard.example">hello@farmguard.example</a></div>
+              </div>
+            </div>
+
           </div>
         </section>
 
@@ -123,4 +185,34 @@ export default function App() {
 
 
   )
+
 }
+
+// Sub-components
+const FeatureItem = ({ icon, title, description }) => (
+  <div className="p-8 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+    <div className="icon mb-4 text-teal-700">{icon}</div>
+    <h3 className="font-semibold text-xl mb-2">{title}</h3>
+    <p className="text-gray-600">{description}</p>
+  </div>
+);
+
+const HowItWorksStep = ({ step, title, description }) => (
+  <div className="how-item" data-step={step}>
+    <h3 className="font-semibold text-lg mb-2">{title}</h3>
+    <p className="text-gray-600 text-sm text-center">{description}</p>
+  </div>
+);
+
+const Testimonial = ({ quote, name, role }) => (
+  <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+    <p className="text-gray-700 italic mb-4">"{quote}"</p>
+    <div className="flex items-center space-x-4">
+      <img src={avatarDataUrl(name)} alt={name} className="testimonial-avatar" />
+      <div>
+        <div className="font-semibold text-gray-900">{name}</div>
+        <div className="text-sm text-gray-500">{role}</div>
+      </div>
+    </div>
+  </div>
+);
