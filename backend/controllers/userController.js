@@ -1,20 +1,26 @@
-const User = require('../models/userModel');
+const userService = require('../services/userService');
 
-exports.getUsers = async (req, res) => {
+const registerUser = async (req, res) => {
   try {
-    const users = await User.find();
-    res.json(users);
+    // req.body will contain all the data from your sign-up form
+    const userData = req.body;
+    
+    // We pass the data to the service layer, which contains the main logic
+    const { user, farm, token } = await userService.registerNewUserAndFarm(userData);
+
+    // If successful, send back the new user, farm, and a token
+    res.status(201).json({
+      message: 'User registered successfully!',
+      user,
+      farm,
+      token
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    // If anything goes wrong, send back an error message
+    res.status(400).json({ message: error.message });
   }
 };
 
-exports.createUser = async (req, res) => {
-  try {
-    const user = new User(req.body);
-    await user.save();
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
+module.exports = {
+  registerUser,
 };
