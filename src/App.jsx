@@ -1,7 +1,14 @@
-import React from 'react';
+import { useState } from 'react';
 import './App.css';
-import Navbar from './components/Navbar';
+import heroImg from './assets/hero image.avif';
 
+// small helper to create an SVG avatar data URL from a name's initials
+function initials(name) {
+  if (!name) return '';
+  const parts = name.trim().split(/\s+/);
+  const chars = parts.length === 1 ? parts[0].slice(0,2) : parts.slice(0,2).map(p=>p[0]);
+  return chars.join('').toUpperCase();
+}
 
 function avatarDataUrl(name, bg = '#e6fff8', fg = '#0f766e') {
   const label = initials(name) || 'U';
@@ -14,23 +21,32 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
+    <>
+    {/* external CSS controls visuals */}
+      <div className="bg-gray-50 font-sans antialiased text-gray-800">
 
-
-    <div className="app-root">
-      <header className="site-header">
-        <div className="logo">FarmGuard</div>
-        <Navbar />
-      </header>
-
-      <header className="hero" role="banner">
-        <div className="hero-content">
-          <h1>FarmGuard — Practical biosecurity for pig & poultry farms</h1>
-          <p className="lead">A mobile-first platform for small and remote farms: risk checks, training, compliance tracking, and real-time alerts — built for low-bandwidth environments.</p>
-
-          <div className="hero-ctas">
-            <a className="btn primary" href="#get-started">Request a demo</a>
-            <a className="btn ghost" href="#learn-more">Explore features</a>
-
+        {/* Header */}
+        <header className="sticky top-0 z-50 bg-white shadow-sm py-4">
+          <div className="container mx-auto px-4 flex justify-between items-center">
+            <div className="text-xl font-bold text-teal-700">FarmGuard</div>
+            <button
+              className={`md:hidden flex flex-col gap-1 w-6 h-6 justify-center items-center ${menuOpen ? 'open' : ''}`}
+              aria-controls="primary-navigation"
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <span className="sr-only">Toggle navigation</span>
+              <span className="bar"></span>
+              <span className="bar"></span>
+              <span className="bar"></span>
+            </button>
+            <nav id="primary-navigation" className={`top-nav absolute md:static top-full left-0 w-full md:w-auto bg-white md:bg-transparent transition-all duration-300 ${menuOpen ? 'translate-y-0 opacity-100 visible' : '-translate-y-4 opacity-0 invisible md:visible md:translate-y-0 md:opacity-100'}`} aria-label="Primary">
+              <div className="flex flex-col md:flex-row items-center md:space-x-8 p-4 md:p-0">
+                <a href="#core-features" className="py-2 text-gray-700 hover:text-teal-700 font-medium" onClick={() => setMenuOpen(false)}>Features</a>
+                <a href="#how" className="py-2 text-gray-700 hover:text-teal-700 font-medium" onClick={() => setMenuOpen(false)}>How it works</a>
+                <a href="#get-started" className="btn bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 px-6 rounded-full transition-colors" onClick={() => setMenuOpen(false)}>Get Started</a>
+              </div>
+            </nav>
           </div>
         </header>
 
@@ -157,35 +173,15 @@ export default function App() {
               </div>
             </div>
 
-          </div>
-        </section>
-
-        <section className="callout" id="get-started">
-          <div className="callout-inner">
-
-            <h2>Ready to protect your farm?</h2>
-            <p className="muted">Sign up for a free pilot, or request a demo for your region.</p>
-            <div className="cta-row">
-              <a className="btn primary" href="#contact">Request a demo</a>
-              <a className="btn" href="#">Download app (beta)</a>
+            <div className="footer-bottom">
+              <div>© {new Date().getFullYear()} FarmGuard — All rights reserved.</div>
+              <div className="muted">Built for smallholder farms</div>
             </div>
           </div>
-        </section>
-      </main>
-
-      <footer className="site-footer" role="contentinfo">
-        <div>© {new Date().getFullYear()} FarmGuard — Built for farmers</div>
-        <nav aria-label="Footer">
-          <a href="#learn-more">Features</a>
-          <a href="#get-started">Get started</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </footer>
-    </div>
-
-
-  )
-
+        </footer>
+      </div>
+    </>
+  );
 }
 
 // Sub-components
