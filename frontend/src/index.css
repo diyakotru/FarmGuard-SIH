@@ -1,0 +1,12 @@
+:root {
+  box-sizing: border-box;
+}
+
+*,:before,:after{box-sizing:inherit}
+
+html,body,#root{height:100%}
+body{margin:0}
+
+@media (prefers-color-scheme: light){
+  :root{color-scheme: light}
+}
