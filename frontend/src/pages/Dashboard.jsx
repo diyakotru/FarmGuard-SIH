@@ -17,7 +17,7 @@ import {
     Circle,
     Users,
     MessageSquare,
-    X
+    X,
 } from 'lucide-react';
 
 // --- All Components are now in this single file ---
@@ -32,7 +32,18 @@ export const Sidebar = () => {
     { icon: <GraduationCap size={20} />, text: 'Training Modules', to: '/training-modules' },
     { icon: <Bell size={20} />, text: 'Alerts', to: '/alerts', badge: 3 },
     { icon: <Users size={20} />, text: 'Community Hub', to: '/community' },
+    //{ icon: <Globe size={20} />, text: 'MyFarm 360°', to: '/map-360' },
   ];
+  const mapLink = { 
+    icon: <Globe size={20} />, 
+    text: 'MyFarm 360°', 
+    // We don't need 'to' since it won't navigate, but we'll use it for a key
+    key: 'map-360' 
+  };
+    const handleMapClick = (e) => {
+    e.preventDefault(); // Prevents React Router from trying to navigate anywhere
+    alert("MyFarm 360° is coming soon! Thank you for your patience.");
+  };
 
   return (
     <div className="w-64 bg-white text-[#08202b] flex-col shadow-lg hidden lg:flex">
@@ -45,9 +56,9 @@ export const Sidebar = () => {
           const isActive = location.pathname === link.to;
           return (
             <Link
-              key={index}
-              to={link.to}
-              className={`flex items-center gap-4 px-4 py-3 mb-2 rounded-lg transition-colors relative
+            key={index}
+            to={link.to}
+            className={`flex items-center gap-4 px-4 py-3 mb-2 rounded-lg transition-colors relative
                 ${isActive
                   ? 'bg-[#0f766e] text-white font-semibold shadow-sm'
                   : 'text-[#5b6770] hover:bg-[#f6fbf9] hover:text-[#08202b]'
@@ -63,6 +74,17 @@ export const Sidebar = () => {
             </Link>
           );
         })}
+        <a
+          href="#" // Use '#' as a placeholder link
+          key={mapLink.key}
+          onClick={handleMapClick} // <--- This will trigger the "Coming Soon" message
+          className={`flex items-center gap-4 px-4 py-3 mb-2 rounded-lg transition-colors 
+            text-[#5b6770] hover:bg-[#f6fbf9] hover:text-[#08202b] cursor-pointer
+          `}
+        >
+          {mapLink.icon}
+          <span>{mapLink.text}</span>
+        </a>
       </nav>
       <div className="p-4 border-t border-gray-200">
         <a href="#" className="flex items-center gap-4 px-4 py-3 text-[#5b6770] hover:bg-[#f6fbf9] hover:text-[#08202b] rounded-lg">
@@ -103,7 +125,7 @@ export const DashboardHeader = () => {
             aria-haspopup="listbox"
             aria-expanded={langOpen}
             style={{ minWidth: '110px' }}
-          >
+            >
             <Globe size={20} className="mr-2" />
             <span className="mr-2">{languages.find(l => l.code === i18n.language)?.label || 'Language'}</span>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,7 +139,7 @@ export const DashboardHeader = () => {
                   <button
                     onClick={() => { i18n.changeLanguage(lang.code); setLangOpen(false); }}
                     className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${i18n.language === lang.code ? 'bg-[#0e766d] text-white font-semibold' : ''}`}
-                  >
+                    >
                     {lang.label}
                   </button>
                 </li>
@@ -153,13 +175,13 @@ const RecentAlerts = () => {
     { title: 'Updated Vaccination Requirements', date: '2025-01-13', level: 'medium' },
     { title: 'Heavy Rain Warning', date: '2025-01-12', level: 'low' },
   ];
-
+  
   const getIconColor = (level) => {
     if (level === 'high') return 'text-[#f87171]'; // critical-red
     if (level === 'medium') return 'text-[#fb923c]'; // warning-orange
     return 'text-[#60a5fa]'; // progress-blue
   };
-
+  
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-xl font-bold text-[#08202b] mb-4">Recent Alerts</h2>
@@ -188,7 +210,7 @@ const PendingTasks = () => {
     { title: 'Review visitor log and access controls', type: 'Weekly Tasks', due: '2025-01-20' },
     { title: 'Update staff training records', type: 'Monthly Tasks', due: '2025-01-30' },
   ];
-
+  
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-xl font-bold text-[#08202b] mb-4">Pending Tasks</h2>
@@ -200,6 +222,7 @@ const PendingTasks = () => {
             </div>
             <div>
               <p className="font-semibold text-[#08202b]">{task.title}</p>
+            
               <p className="text-sm text-[#5b6770]">{task.type} - Due: {task.due}</p>
             </div>
           </li>
@@ -208,24 +231,8 @@ const PendingTasks = () => {
     </div>
   );
 };
-// const ChatbotIcon = () => {
-//   return (
-//     <div className="fixed bottom-4 right-4 z-50">
-//             <button 
-//                 // onClick={() => setIsOpen(!isOpen)} 
-//                 className="bg-teal-600 text-white rounded-full p-4 shadow-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition-all">
-//                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-//                     <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16l3-3m0 0l3 3m-3-3v9a2 2 0 01-2 2h-4l-2 2V19a2 2 0 01-2-2v-2" />
-//                 </svg>
-//             </button>
-//             {/* {isOpen && <ChatbotWindow />} */}
-//         </div>
-//   );
-// };
 
-// =========================================================
-// ✅ NEW CHATBOT WINDOW COMPONENT
-// =========================================================
+// CHATBOT WINDOW COMPONENT
 const ChatbotWindow = ({ onClose }) => {
   return (
     // Max z-index (z-[9999]) is used to ensure visibility over all other elements
@@ -261,10 +268,7 @@ const ChatbotWindow = ({ onClose }) => {
   );
 };
 
-
-// =========================================================
-// ✅ NEW FLOATING CHAT WIDGET (Button + Floating Message + Portal)
-// =========================================================
+//FLOATING CHAT WIDGET (Button + Floating Message + Portal)
 const FloatingChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleChat = () => setIsOpen(!isOpen);
@@ -306,10 +310,51 @@ const FloatingChatWidget = () => {
   );
 };
 
+// // 360 MAP VIEW COMPONENT
+// export const Map360View = () => {
+//   // Example coordinates for a generic farm/location (like Punjab)
+// //   const latitude = 30.7333; // Chandigarh area
+// //   const longitude = 76.7794; 
+// //   const apiKey = "AIzaSyDvD809YI7FOrCXtMKyZ33T5Nd4KuuLYho"; 
+
+// // const streetViewUrl = `https://www.google.com/maps/embed/v1/streetview?key=${apiKey}&location=${latitude},${longitude}&heading=210&pitch=10&fov=35`;
+// //  return (
+// //     <div className="flex flex-col h-full">
+// //       <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+// //         <h1 className="text-2xl font-bold text-[#08202b]">360° Farm View</h1>
+// //         <p className="text-[#5b6770]">Explore your farm environment interactively.</p>
+// //       </div>
+
+// //       <div className="flex-1 bg-white rounded-lg shadow-md overflow-hidden">
+// //         {/* The iframe embeds the 360-degree panoramic view */}
+// //         <iframe
+// //           width="100%"
+// //           height="100%"
+// //           style={{ border: 0 }}
+// //           loading="lazy"
+// //           allowFullScreen
+// //           referrerPolicy="no-referrer-when-downgrade"
+// //           src={streetViewUrl}
+// //           title="360 Degree Farm Map View"
+// //         ></iframe>
+// //       </div>
+      
+// //       {/* ⚠️ IMPORTANT: Replace 'YOUR_API_KEY' in the streetViewUrl above with your actual Google Maps API key if you deploy this. */}
+// //     </div>
+// //   );
+//  return (
+//     // If this text shows up, the routing is fine, and the problem is the map code/API key.
+//     <div className="bg-red-500 text-white p-6 rounded-lg shadow-md">
+//       <h1>MAP VIEW ROUTE SUCCESSFUL!</h1>
+//       <p>The routing works, the problem is with the iframe/Google Maps API.</p>
+//     </div>
+//   );
+// };
+
 
 // --- Main Dashboard Export ---
 export default function Dashboard() {
- 
+
   return (
     <div className="flex h-screen bg-[#f6fbf9] font-sans">
       <Sidebar />
