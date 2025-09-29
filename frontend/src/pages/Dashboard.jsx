@@ -15,7 +15,8 @@ import {
     ListChecks, 
     AlertTriangle,
     Circle,
-    MessageSquare
+    MessageSquare,
+    X
 } from 'lucide-react';
 
 // --- All Components are now in this single file ---
