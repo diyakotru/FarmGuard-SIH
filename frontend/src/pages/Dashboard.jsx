@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
+
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { createPortal } from 'react-dom';
+import { useAuth } from '../AuthContext';
+
 // Make sure to install lucide-react: npm install lucide-react
 import { 
     LogOut, 
@@ -25,6 +28,8 @@ import {
 // 1. Sidebar Component
 export const Sidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { logout } = useAuth();
   const navLinks = [
     { icon: <LayoutDashboard size={20} />, text: 'Dashboard', to: '/dashboard' },
     { icon: <ShieldCheck size={20} />, text: 'Risk Assessment', to: '/risk-assessment' },
@@ -87,10 +92,13 @@ export const Sidebar = () => {
         </a>
       </nav>
       <div className="p-4 border-t border-gray-200">
-        <a href="#" className="flex items-center gap-4 px-4 py-3 text-[#5b6770] hover:bg-[#f6fbf9] hover:text-[#08202b] rounded-lg">
+        <button
+          className="flex items-center gap-4 px-4 py-3 text-[#5b6770] hover:bg-[#f6fbf9] hover:text-[#08202b] rounded-lg w-full text-left"
+          onClick={() => { logout(); navigate('/'); }}
+        >
           <LogOut size={20} />
           <span>Logout</span>
-        </a>
+        </button>
       </div>
     </div>
   );
