@@ -165,3 +165,133 @@ main{margin-top:32px}
 a:focus,button:focus{outline:3px solid rgba(15,118,110,0.14);outline-offset:3px}
 
 .muted{color:var(--muted)}
+
+/* Training Modules specific styles */
+.training-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.training-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.progress-bar {
+  transition: width 0.5s ease-out;
+}
+
+.cta-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Video card enhancements */
+.video-thumbnail {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.video-play-overlay {
+  background: linear-gradient(45deg, rgba(15, 118, 110, 0.8), rgba(14, 165, 161, 0.8));
+  backdrop-filter: blur(2px);
+}
+
+.video-play-button {
+  transform: scale(0.9);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.video-play-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 25px rgba(15, 118, 110, 0.3);
+}
+
+/* Shimmer effect for loading video thumbnails */
+.video-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Alert specific styles */
+.alert-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.alert-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.alert-priority-critical {
+  border-left: 4px solid #ef4444;
+}
+
+.alert-priority-high {
+  border-left: 4px solid #f97316;
+}
+
+.alert-priority-medium {
+  border-left: 4px solid #eab308;
+}
+
+.alert-priority-low {
+  border-left: 4px solid #3b82f6;
+}
+
+/* Dropdown animations */
+.dropdown-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.dropdown-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.2s ease-out;
+}
+
+.dropdown-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dropdown-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.2s ease-in;
+}
+
+/* Alert notification badge pulse */
+.alert-badge-pulse {
+  animation: pulse-notification 2s infinite;
+}
+
+@keyframes pulse-notification {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}

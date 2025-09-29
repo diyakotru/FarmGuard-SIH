@@ -25,8 +25,8 @@ export const Sidebar = () => {
     { icon: <LayoutDashboard size={20} />, text: 'Dashboard', to: '/dashboard' },
     { icon: <ShieldCheck size={20} />, text: 'Risk Assessment', to: '/risk-assessment' },
     { icon: <ListTodo size={20} />, text: 'Digital Checklist', to: '/digital-checklist' },
-    { icon: <GraduationCap size={20} />, text: 'Training Modules', to: '#' },
-    { icon: <Bell size={20} />, text: 'Alerts', to: '#' },
+    { icon: <GraduationCap size={20} />, text: 'Training Modules', to: '/training-modules' },
+    { icon: <Bell size={20} />, text: 'Alerts', to: '/alerts', badge: 3 },
   ];
 
   return (
@@ -42,7 +42,7 @@ export const Sidebar = () => {
             <Link
               key={index}
               to={link.to}
-              className={`flex items-center gap-4 px-4 py-3 mb-2 rounded-lg transition-colors
+              className={`flex items-center gap-4 px-4 py-3 mb-2 rounded-lg transition-colors relative
                 ${isActive
                   ? 'bg-[#0f766e] text-white font-semibold shadow-sm'
                   : 'text-[#5b6770] hover:bg-[#f6fbf9] hover:text-[#08202b]'
@@ -50,6 +50,11 @@ export const Sidebar = () => {
             >
               {link.icon}
               <span>{link.text}</span>
+              {link.badge && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                  {link.badge}
+                </span>
+              )}
             </Link>
           );
         })}
