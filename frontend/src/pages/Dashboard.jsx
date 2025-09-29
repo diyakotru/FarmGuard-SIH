@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
+import { createPortal } from 'react-dom';
 // Make sure to install lucide-react: npm install lucide-react
 import { 
     LogOut, 
@@ -13,7 +14,8 @@ import {
     ShieldAlert, 
     ListChecks, 
     AlertTriangle,
-    Circle
+    Circle,
+    MessageSquare
 } from 'lucide-react';
 
 // --- All Components are now in this single file ---
@@ -203,10 +205,108 @@ const PendingTasks = () => {
     </div>
   );
 };
+// const ChatbotIcon = () => {
+//   return (
+//     <div className="fixed bottom-4 right-4 z-50">
+//             <button 
+//                 // onClick={() => setIsOpen(!isOpen)} 
+//                 className="bg-teal-600 text-white rounded-full p-4 shadow-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition-all">
+//                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+//                     <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16l3-3m0 0l3 3m-3-3v9a2 2 0 01-2 2h-4l-2 2V19a2 2 0 01-2-2v-2" />
+//                 </svg>
+//             </button>
+//             {/* {isOpen && <ChatbotWindow />} */}
+//         </div>
+//   );
+// };
+
+// =========================================================
+// ✅ NEW CHATBOT WINDOW COMPONENT
+// =========================================================
+const ChatbotWindow = ({ onClose }) => {
+  return (
+    // Max z-index (z-[9999]) is used to ensure visibility over all other elements
+    <div className="fixed bottom-20 right-4 z-[9999] w-80 h-96 bg-white rounded-lg shadow-2xl flex flex-col">
+      {/* Header */}
+      <div className="bg-[#0f766e] text-white p-3 rounded-t-lg flex justify-between items-center">
+        <h3 className="font-semibold">FarmGuard AI Assistant</h3>
+        <button onClick={onClose} className="text-white hover:text-gray-200 p-1 rounded-full">
+          <X size={20} />
+        </button>
+      </div>
+
+      {/* Body/Message Area */}
+      <div className="flex-1 p-3 overflow-y-auto space-y-3">
+        {/* DEMO MESSAGE */}
+        <div className="flex justify-start">
+          <div className="bg-gray-200 p-3 rounded-lg rounded-tl-none max-w-[85%] text-sm">
+            Hello! I'm your Biosecurity Assistant. How can I help monitor your farm today?
+          </div>
+        </div>
+        
+      </div>
+
+      {/* Footer/Input Area */}
+      <div className="p-3 border-t">
+        <input
+          type="text"
+          placeholder="Type your message..."
+          className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f766e]"
+        />
+      </div>
+    </div>
+  );
+};
+
+
+// =========================================================
+// ✅ NEW FLOATING CHAT WIDGET (Button + Floating Message + Portal)
+// =========================================================
+const FloatingChatWidget = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleChat = () => setIsOpen(!isOpen);
+
+  // The content to be rendered outside the main DOM tree via Portal
+  const WidgetContent = (
+    <>
+      {/* 1. Chat Window (Rendered Conditionally) */}
+      {isOpen && <ChatbotWindow onClose={toggleChat} />}
+
+      {/* 2. The Floating Button and Message Bubble */}
+      <div className="fixed bottom-4 right-4 z-[9999]">
+        
+        {/* Floating Message Bubble (Visible only when chat is closed) */}
+        {!isOpen && (
+          <div className="absolute right-0 bottom-full mb-3 p-3 bg-white text-gray-800 text-sm rounded-lg shadow-xl max-w-sm transition-all duration-300 transform origin-bottom-right">
+            Hi there! How can I help you?
+            {/* Simple triangle pointer using CSS borders */}
+            <div className="absolute right-3 bottom-[-5px] w-0 h-0 border-t-[5px] border-t-white border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent"></div>
+          </div>
+        )}
+
+        {/* Chat Button (Always visible) */}
+        <button
+          onClick={toggleChat}
+          className="bg-teal-600 text-white rounded-full p-4 shadow-xl hover:bg-teal-700 focus:outline-none focus:ring-4 focus:ring-teal-500 focus:ring-offset-2 transition-all"
+        >
+          <MessageSquare size={32} />
+        </button>
+      </div>
+    </>
+  );
+
+  // Use createPortal to render the content directly into the document.body.
+  // This is the most reliable way to prevent clipping from parent overflow properties.
+  return createPortal(
+    WidgetContent,
+    document.body
+  );
+};
 
 
 // --- Main Dashboard Export ---
 export default function Dashboard() {
+ 
   return (
     <div className="flex h-screen bg-[#f6fbf9] font-sans">
       <Sidebar />
@@ -226,6 +326,10 @@ export default function Dashboard() {
                 <div className="text-white">
                     <ShieldCheck size={40} />
                 </div>
+                {/* ✅ CHATBOT ICON ADDED HERE (Optional: Add a click handler for functionality) */}
+                {/* <div className="text-white cursor-pointer hover:text-teal-200 transition-colors">
+                  <ChatbotIcon size={40} />
+                </div> */}
             </div>
 
             {/* Statistics Cards */}
@@ -268,6 +372,7 @@ export default function Dashboard() {
           </div>
         </main>
       </div>
+         <FloatingChatWidget/>
     </div>
   );
 }
