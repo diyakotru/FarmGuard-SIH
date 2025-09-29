@@ -101,6 +101,7 @@ const ScoreGauge = ({ score }) => {
   const offset = circumference - (percentage / 100) * circumference;
 
   const getRiskColor = () => {
+    if (score === 0) return 'text-gray-400';
     if (score < 40) return 'text-red-500';
     if (score < 75) return 'text-yellow-500';
     return 'text-teal-600';
@@ -151,8 +152,9 @@ export default function RiskAssessmentPage() {
   const { score, riskLevel, recommendations } = useMemo(() => {
     let currentScore = 0;
     const totalWeight = assessmentQuestions.flatMap(s => s.questions).reduce((sum, q) => sum + q.weight, 0);
-    let answeredRecommendations =[];
+    let answeredRecommendations = [];
 
+    const answeredCount = Object.keys(answers).length;
     assessmentQuestions.flatMap(s => s.questions).forEach(q => {
       if (answers[q.id] === true) {
         currentScore += q.weight;
@@ -160,11 +162,12 @@ export default function RiskAssessmentPage() {
         answeredRecommendations.push(allRecommendations[q.id]);
       }
     });
-    
+
     const finalScore = Math.round((currentScore / totalWeight) * 100) || 0;
 
     let level = 'Low Risk';
-    if (finalScore < 40) level = 'High Risk';
+    if (answeredCount === 0) level = 'Not Assessed';
+    else if (finalScore < 40) level = 'High Risk';
     else if (finalScore < 75) level = 'Medium Risk';
 
     return { score: finalScore, riskLevel: level, recommendations: answeredRecommendations };

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import logo from '../assets/logo.png';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [langOpen, setLangOpen] = useState(false);
   const languages = [
     { code: 'en', label: 'English' },
@@ -17,7 +18,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo / Brand */}
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
+            <img src={logo} alt="FarmGuard Logo" className="h-10 w-10 object-contain rounded-full" />
             <Link to="/" className="text-2xl font-bold">
               FarmGuard
             </Link>
@@ -29,6 +31,12 @@ export default function Navbar() {
             </Link>
             <Link to="/about" className="hover:text-gray-200">
               About
+            </Link>
+            <Link to="/community" className="hover:text-gray-200 font-semibold">
+              {t('community')}
+            </Link>
+            <Link to="/LoginPage" className="hover:text-gray-200 font-semibold">
+              Login
             </Link>
             {/* Language Switcher Button */}
             <div className="relative">

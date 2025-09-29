@@ -14,6 +14,7 @@ import DigitalChecklistPage from './pages/DigitalChecklistPage.jsx';
 import TrainingModulesPage from './pages/TrainingModulesPage.jsx';
 import AlertsPage from './pages/AlertsPage.jsx';
 import CommunityPage from './pages/CommunityPage.jsx';
+import MyFarm360Page from './pages/MyFarm360Page.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -29,6 +30,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/training-modules" element={<TrainingModulesPage />} />
           <Route path="/alerts" element={<AlertsPage />} />
           <Route path="/community" element={<CommunityPage />} />
+          <Route path="/myfarm-360" element={<MyFarm360Page />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

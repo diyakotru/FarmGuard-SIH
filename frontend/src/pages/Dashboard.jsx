@@ -27,24 +27,25 @@ import {
 
 // 1. Sidebar Component
 export const Sidebar = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const { logout } = useAuth();
   const navLinks = [
-    { icon: <LayoutDashboard size={20} />, text: 'Dashboard', to: '/dashboard' },
-    { icon: <ShieldCheck size={20} />, text: 'Risk Assessment', to: '/risk-assessment' },
-    { icon: <ListTodo size={20} />, text: 'Digital Checklist', to: '/digital-checklist' },
-    { icon: <GraduationCap size={20} />, text: 'Training Modules', to: '/training-modules' },
-    { icon: <Bell size={20} />, text: 'Alerts', to: '/alerts', badge: 3 },
-    { icon: <Users size={20} />, text: 'Community Hub', to: '/community' },
-    //{ icon: <Globe size={20} />, text: 'MyFarm 360°', to: '/map-360' },
+    { icon: <LayoutDashboard size={20} />, text: t('dashboard'), to: '/dashboard' },
+    { icon: <ShieldCheck size={20} />, text: t('risk_assessment'), to: '/risk-assessment' },
+    { icon: <ListTodo size={20} />, text: t('digital_checklist'), to: '/digital-checklist' },
+    { icon: <GraduationCap size={20} />, text: t('training_modules'), to: '/training-modules' },
+    { icon: <Bell size={20} />, text: t('alerts'), to: '/alerts', badge: 3 },
+    { icon: <Users size={20} />, text: t('community_hub'), to: '/community' },
+    { icon: <Globe size={20} />, text: t('myfarm_360'), to: '/myfarm-360' },
   ];
   const mapLink = { 
     icon: <Globe size={20} />, 
-    text: 'MyFarm 360°', 
-    // We don't need 'to' since it won't navigate, but we'll use it for a key
+    text: t('myfarm_360'), 
     key: 'map-360' 
   };
+  
     const handleMapClick = (e) => {
     e.preventDefault(); // Prevents React Router from trying to navigate anywhere
     alert("MyFarm 360° is coming soon! Thank you for your patience.");
@@ -54,7 +55,7 @@ export const Sidebar = () => {
     <div className="w-64 bg-white text-[#08202b] flex-col shadow-lg hidden lg:flex">
       {/* ✅ YOUR COLOR is used here for the main title */}
       <div className="p-6 text-2xl font-bold text-[#0f766e] border-b border-gray-200">
-        FarmGuard
+        {t('farmguard')}
       </div>
       <nav className="flex-1 px-4 py-6">
         {navLinks.map((link, index) => {
@@ -79,17 +80,6 @@ export const Sidebar = () => {
             </Link>
           );
         })}
-        <a
-          href="#" // Use '#' as a placeholder link
-          key={mapLink.key}
-          onClick={handleMapClick} // <--- This will trigger the "Coming Soon" message
-          className={`flex items-center gap-4 px-4 py-3 mb-2 rounded-lg transition-colors 
-            text-[#5b6770] hover:bg-[#f6fbf9] hover:text-[#08202b] cursor-pointer
-          `}
-        >
-          {mapLink.icon}
-          <span>{mapLink.text}</span>
-        </a>
       </nav>
       <div className="p-4 border-t border-gray-200">
         <button
@@ -97,7 +87,7 @@ export const Sidebar = () => {
           onClick={() => { logout(); navigate('/'); }}
         >
           <LogOut size={20} />
-          <span>Logout</span>
+          <span>{t('logout')}</span>
         </button>
       </div>
     </div>
@@ -106,7 +96,7 @@ export const Sidebar = () => {
 
 // 2. Dashboard Header Component with Language Switcher
 export const DashboardHeader = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [langOpen, setLangOpen] = useState(false);
   const languages = [
     { code: 'en', label: 'English' },
@@ -116,8 +106,8 @@ export const DashboardHeader = () => {
   return (
     <header className="bg-white p-6 border-b border-gray-200 flex justify-between items-center">
       <div>
-        <h1 className="text-2xl font-bold text-[#08202b]">Welcome back, Ram Singh</h1>
-        <p className="text-[#5b6770]">Singh Poultry Farm - Punjab, India</p>
+  <h1 className="text-2xl font-bold text-[#08202b]">{t('welcome_back')}, Ram Singh</h1>
+  <p className="text-[#5b6770]">Singh Poultry Farm - Punjab, India</p>
       </div>
       <div className="flex items-center gap-6">
         {/* Notification Button */}
@@ -135,7 +125,7 @@ export const DashboardHeader = () => {
             style={{ minWidth: '110px' }}
             >
             <Globe size={20} className="mr-2" />
-            <span className="mr-2">{languages.find(l => l.code === i18n.language)?.label || 'Language'}</span>
+            <span className="mr-2">{languages.find(l => l.code === i18n.language)?.label || t('language')}</span>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
             </svg>

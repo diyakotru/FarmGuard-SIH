@@ -424,33 +424,33 @@ const TrainingModulesPage = () => {
             </div>
 
             {/* Achievements Section */}
-            <div className="bg-gradient-to-br from-purple-600 to-blue-600 text-white p-6 md:p-8 rounded-xl shadow-lg">
-              <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between">
+            <div className="bg-gradient-to-br from-teal-500 via-teal-400 to-green-300 text-[#08202b] p-6 md:p-8 rounded-2xl shadow-xl border border-teal-200/60">
+              <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
                 <div className="w-full lg:w-auto mb-6 lg:mb-0">
-                  <h2 className="text-xl md:text-2xl font-bold mb-2">{t('training_achievements') || 'Training Achievements'}</h2>
-                  <p className="text-purple-100 mb-4">{t('keep_learning') || 'Keep learning to unlock more achievements'}</p>
+                  <h2 className="text-xl md:text-2xl font-bold mb-2 text-teal-900 drop-shadow-sm">{t('training_achievements') || 'Training Achievements'}</h2>
+                  <p className="text-base mb-4 text-teal-700 font-medium">{t('keep_learning') || 'Keep learning to unlock more achievements'}</p>
                   
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-8 text-center">
                     <div>
-                      <div className="text-3xl md:text-4xl font-bold">{completedModules}</div>
-                      <div className="text-sm text-purple-200">{t('modules_completed') || 'Modules Completed'}</div>
+                      <div className="text-3xl md:text-4xl font-extrabold text-teal-900 drop-shadow">{completedModules}</div>
+                      <div className="text-sm text-teal-700 font-semibold">{t('modules_completed') || 'Modules Completed'}</div>
                     </div>
                     <div>
-                      <div className="text-3xl md:text-4xl font-bold">{totalLessons}</div>
-                      <div className="text-sm text-purple-200">{t('total_lessons') || 'Total Lessons'}</div>
+                      <div className="text-3xl md:text-4xl font-extrabold text-teal-900 drop-shadow">{totalLessons}</div>
+                      <div className="text-sm text-teal-700 font-semibold">{t('total_lessons') || 'Total Lessons'}</div>
                     </div>
                     <div>
-                      <div className="text-3xl md:text-4xl font-bold">95%</div>
-                      <div className="text-sm text-purple-200">{t('knowledge_score') || 'Knowledge Score'}</div>
+                      <div className="text-3xl md:text-4xl font-extrabold text-teal-900 drop-shadow">95%</div>
+                      <div className="text-sm text-teal-700 font-semibold">{t('knowledge_score') || 'Knowledge Score'}</div>
                     </div>
                   </div>
                 </div>
                 
-                <div className="text-center lg:text-right">
-                  <div className="p-6 bg-white/10 rounded-full mb-4 inline-block">
-                    <Award size={48} />
+                <div className="text-center lg:text-right flex flex-col items-center lg:items-end">
+                  <div className="p-6 bg-white/70 rounded-full mb-4 inline-block shadow-md border border-teal-100">
+                    <Award size={48} className="text-teal-500" />
                   </div>
-                  <p className="text-sm font-medium">{t('achievement_badge') || 'Achievement Badge'}</p>
+                  <p className="text-sm font-semibold text-teal-800">{t('achievement_badge') || 'Achievement Badge'}</p>
                 </div>
               </div>
             </div>

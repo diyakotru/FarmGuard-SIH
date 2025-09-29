@@ -133,7 +133,9 @@ export default function App() {
             <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4">{t('digital_biosecurity')}</h1>
             <p className="text-lg md:text-xl font-light max-w-2xl mx-auto mb-8">{t('protect_poultry')}</p>
             <div className="flex justify-center space-x-4">
-              <a className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-full transition-colors cta-pulse" href="#get-started">{t('start_protecting')}</a>
+              <Link to="/signup" className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-full transition-colors">
+                {t('start_protecting')}
+              </Link>
             </div>
           </div>
         </header>
@@ -202,7 +204,9 @@ export default function App() {
             <div className="container mx-auto px-4">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('join_movement')}</h2>
               <p className="text-gray-200 max-w-3xl mx-auto mb-8">{t('ready_to_control')}</p>
-              <a className="bg-white text-teal-700 font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-shadow" href="#">{t('start_now')}</a>
+              <Link to="/signup" className="bg-white text-teal-700 font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-shadow">
+                {t('start_now')}
+              </Link>
             </div>
           </section>
         </main>
