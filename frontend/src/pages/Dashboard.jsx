@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
 // Make sure to install lucide-react: npm install lucide-react
 import { 
     LogOut, 
@@ -17,13 +19,14 @@ import {
 // --- All Components are now in this single file ---
 
 // 1. Sidebar Component
-const Sidebar = () => {
+export const Sidebar = () => {
+  const location = useLocation();
   const navLinks = [
-    { icon: <LayoutDashboard size={20} />, text: 'Dashboard', active: true },
-    { icon: <ShieldCheck size={20} />, text: 'Risk Assessment' },
-    { icon: <ListTodo size={20} />, text: 'Digital Checklist' },
-    { icon: <GraduationCap size={20} />, text: 'Training Modules' },
-    { icon: <Bell size={20} />, text: 'Alerts' },
+    { icon: <LayoutDashboard size={20} />, text: 'Dashboard', to: '/dashboard' },
+    { icon: <ShieldCheck size={20} />, text: 'Risk Assessment', to: '/risk-assessment' },
+    { icon: <ListTodo size={20} />, text: 'Digital Checklist', to: '/digital-checklist' },
+    { icon: <GraduationCap size={20} />, text: 'Training Modules', to: '#' },
+    { icon: <Bell size={20} />, text: 'Alerts', to: '#' },
   ];
 
   return (
@@ -33,21 +36,23 @@ const Sidebar = () => {
         FarmGuard
       </div>
       <nav className="flex-1 px-4 py-6">
-        {navLinks.map((link, index) => (
-          <a
-            key={index}
-            href="#"
-            className={`flex items-center gap-4 px-4 py-3 mb-2 rounded-lg transition-colors
-              ${link.active 
-                // ✅ YOUR COLOR is used here for the active navigation link
-                ? 'bg-[#0f766e] text-white font-semibold shadow-sm' 
-                : 'text-[#5b6770] hover:bg-[#f6fbf9] hover:text-[#08202b]'
-              }`}
-          >
-            {link.icon}
-            <span>{link.text}</span>
-          </a>
-        ))}
+        {navLinks.map((link, index) => {
+          const isActive = location.pathname === link.to;
+          return (
+            <Link
+              key={index}
+              to={link.to}
+              className={`flex items-center gap-4 px-4 py-3 mb-2 rounded-lg transition-colors
+                ${isActive
+                  ? 'bg-[#0f766e] text-white font-semibold shadow-sm'
+                  : 'text-[#5b6770] hover:bg-[#f6fbf9] hover:text-[#08202b]'
+                }`}
+            >
+              {link.icon}
+              <span>{link.text}</span>
+            </Link>
+          );
+        })}
       </nav>
       <div className="p-4 border-t border-gray-200">
         <a href="#" className="flex items-center gap-4 px-4 py-3 text-[#5b6770] hover:bg-[#f6fbf9] hover:text-[#08202b] rounded-lg">
@@ -59,8 +64,15 @@ const Sidebar = () => {
   );
 };
 
-// 2. Dashboard Header Component
-const DashboardHeader = () => {
+// 2. Dashboard Header Component with Language Switcher
+export const DashboardHeader = () => {
+  const { i18n } = useTranslation();
+  const [langOpen, setLangOpen] = useState(false);
+  const languages = [
+    { code: 'en', label: 'English' },
+    { code: 'hi', label: 'हिंदी' },
+    { code: 'te', label: 'తెలుగు' }
+  ];
   return (
     <header className="bg-white p-6 border-b border-gray-200 flex justify-between items-center">
       <div>
@@ -68,16 +80,41 @@ const DashboardHeader = () => {
         <p className="text-[#5b6770]">Singh Poultry Farm - Punjab, India</p>
       </div>
       <div className="flex items-center gap-6">
-        {/* ✅ YOUR COLOR is used here for the hover effect */}
+        {/* Notification Button */}
         <button className="text-[#5b6770] hover:text-[#0f766e] relative">
           <Bell size={24} />
           <span className="absolute top-0 right-0 w-2 h-2 bg-[#f87171] rounded-full"></span>
         </button>
-        {/* ✅ YOUR COLOR is used here for the hover effect */}
-        <button className="flex items-center gap-2 text-[#5b6770] hover:text-[#0f766e]">
-          <Globe size={20} />
-          <span>English</span>
-        </button>
+        {/* Language Switcher Button */}
+        <div className="relative">
+          <button
+            onClick={() => setLangOpen(!langOpen)}
+            className="flex items-center px-3 py-2 bg-[#0e766d] hover:bg-[#0b5e53] text-white rounded-full shadow-sm border border-gray-200 font-medium focus:outline-none"
+            aria-haspopup="listbox"
+            aria-expanded={langOpen}
+            style={{ minWidth: '110px' }}
+          >
+            <Globe size={20} className="mr-2" />
+            <span className="mr-2">{languages.find(l => l.code === i18n.language)?.label || 'Language'}</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          {langOpen && (
+            <ul className="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+              {languages.map(lang => (
+                <li key={lang.code}>
+                  <button
+                    onClick={() => { i18n.changeLanguage(lang.code); setLangOpen(false); }}
+                    className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${i18n.language === lang.code ? 'bg-[#0e766d] text-white font-semibold' : ''}`}
+                  >
+                    {lang.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </header>
   );

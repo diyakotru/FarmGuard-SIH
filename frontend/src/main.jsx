@@ -9,6 +9,8 @@ import './i18n.js';
 import LoginPage from './pages/LoginPage.jsx';
 import SignUp from './pages/SignUp.jsx';
 import Dashboard from './pages/Dashboard.jsx';
+import RiskAssessmentPage from './pages/RiskAssessmentPage.jsx';
+import DigitalChecklistPage from './pages/DigitalChecklistPage.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -19,6 +21,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/LoginPage" element={<LoginPage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/risk-assessment" element={<RiskAssessmentPage />} />
+          <Route path="/digital-checklist" element={<DigitalChecklistPage />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
