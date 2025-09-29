@@ -213,6 +213,71 @@ a:focus,button:focus{outline:3px solid rgba(15,118,110,0.14);outline-offset:3px}
   animation: shimmer 2s infinite;
 }
 
+/* Alert specific styles */
+.alert-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.alert-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.alert-priority-critical {
+  border-left: 4px solid #ef4444;
+}
+
+.alert-priority-high {
+  border-left: 4px solid #f97316;
+}
+
+.alert-priority-medium {
+  border-left: 4px solid #eab308;
+}
+
+.alert-priority-low {
+  border-left: 4px solid #3b82f6;
+}
+
+/* Dropdown animations */
+.dropdown-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.dropdown-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.2s ease-out;
+}
+
+.dropdown-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dropdown-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.2s ease-in;
+}
+
+/* Alert notification badge pulse */
+.alert-badge-pulse {
+  animation: pulse-notification 2s infinite;
+}
+
+@keyframes pulse-notification {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
 @keyframes shimmer {
   0% {
     background-position: -200% 0;
