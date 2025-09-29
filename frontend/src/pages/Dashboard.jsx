@@ -25,7 +25,7 @@ export const Sidebar = () => {
     { icon: <LayoutDashboard size={20} />, text: 'Dashboard', to: '/dashboard' },
     { icon: <ShieldCheck size={20} />, text: 'Risk Assessment', to: '/risk-assessment' },
     { icon: <ListTodo size={20} />, text: 'Digital Checklist', to: '/digital-checklist' },
-    { icon: <GraduationCap size={20} />, text: 'Training Modules', to: '#' },
+    { icon: <GraduationCap size={20} />, text: 'Training Modules', to: '/training-modules' },
     { icon: <Bell size={20} />, text: 'Alerts', to: '#' },
   ];
 

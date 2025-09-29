@@ -11,6 +11,7 @@ import SignUp from './pages/SignUp.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import RiskAssessmentPage from './pages/RiskAssessmentPage.jsx';
 import DigitalChecklistPage from './pages/DigitalChecklistPage.jsx';
+import TrainingModulesPage from './pages/TrainingModulesPage.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/risk-assessment" element={<RiskAssessmentPage />} />
           <Route path="/digital-checklist" element={<DigitalChecklistPage />} />
+          <Route path="/training-modules" element={<TrainingModulesPage />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
