@@ -13,7 +13,8 @@ import {
     ShieldAlert, 
     ListChecks, 
     AlertTriangle,
-    Circle
+    Circle,
+    Users
 } from 'lucide-react';
 
 // --- All Components are now in this single file ---
@@ -27,6 +28,7 @@ export const Sidebar = () => {
     { icon: <ListTodo size={20} />, text: 'Digital Checklist', to: '/digital-checklist' },
     { icon: <GraduationCap size={20} />, text: 'Training Modules', to: '/training-modules' },
     { icon: <Bell size={20} />, text: 'Alerts', to: '/alerts', badge: 3 },
+    { icon: <Users size={20} />, text: 'Community Hub', to: '/community' },
   ];
 
   return (
