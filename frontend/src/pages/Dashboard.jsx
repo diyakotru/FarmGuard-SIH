@@ -15,6 +15,7 @@ import {
     ListChecks, 
     AlertTriangle,
     Circle,
+    Users,
     MessageSquare,
     X
 } from 'lucide-react';
@@ -30,6 +31,7 @@ export const Sidebar = () => {
     { icon: <ListTodo size={20} />, text: 'Digital Checklist', to: '/digital-checklist' },
     { icon: <GraduationCap size={20} />, text: 'Training Modules', to: '/training-modules' },
     { icon: <Bell size={20} />, text: 'Alerts', to: '/alerts', badge: 3 },
+    { icon: <Users size={20} />, text: 'Community Hub', to: '/community' },
   ];
 
   return (

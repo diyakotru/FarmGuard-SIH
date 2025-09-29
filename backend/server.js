@@ -5,6 +5,7 @@ const app = express();
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
 const farmRoutes = require('./routes/farmRoutes');
+const communityRoutes = require('./routes/communityRoutes');
 const errorHandler = require('./middlewares/errorHandler');
 
 // Middleware
@@ -13,6 +14,7 @@ app.use(express.json());
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/api/farms', farmRoutes);
+app.use('/api/community', communityRoutes);
 
 // Error handler
 app.use(errorHandler);
