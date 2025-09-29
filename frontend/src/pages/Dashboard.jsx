@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { createPortal } from 'react-dom';
 import { useAuth } from '../AuthContext';
+import { createPortal } from 'react-dom';
 
 // Make sure to install lucide-react: npm install lucide-react
 import { 
