@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './App.css';
 import heroImg from './assets/hero image.avif';
+import logo from './assets/logo.png';
 
 // small helper to create an SVG avatar data URL from a name's initials
 function initials(name) {
@@ -36,7 +37,10 @@ export default function App() {
         {/* Header */}
         <header className="sticky top-0 z-50 bg-white shadow-sm py-4">
           <div className="container mx-auto px-4 flex justify-between items-center">
-            <div className="text-xl font-bold text-teal-700">{t('farmguard')}</div>
+            <div className="flex items-center space-x-3">
+              <img src={logo} alt="FarmGuard Logo" className="h-8 w-8" />
+              <div className="text-xl font-bold text-teal-700">{t('farmguard')}</div>
+            </div>
 
             {/* Hamburger menu for mobile */}
             <div className="flex items-center gap-4">
