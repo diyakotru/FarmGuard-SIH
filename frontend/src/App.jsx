@@ -5,7 +5,6 @@ import './App.css';
 import heroImg from './assets/hero image.avif';
 import logo from './assets/logo.png';
 
-// small helper to create an SVG avatar data URL from a name's initials
 function initials(name) {
   if (!name) return '';
   const parts = name.trim().split(/\s+/);
