@@ -97,7 +97,7 @@ export default function App() {
                 {/* Nav Links */}
                 <a href="#core-features" className="py-2 text-gray-700 hover:text-teal-700 font-medium" onClick={() => setMenuOpen(false)}>{t('features')}</a>
                 <a href="#how" className="py-2 text-gray-700 hover:text-teal-700 font-medium" onClick={() => setMenuOpen(false)}>{t('how_it_works')}</a>
-                <Link to="/community" className="py-2 text-gray-700 hover:text-teal-700 font-medium" onClick={() => setMenuOpen(false)}>Community</Link>
+                <Link to="/community" className="py-2 text-gray-700 hover:text-teal-700 font-medium" onClick={() => setMenuOpen(false)}>{t('community')}</Link>
 
                 {/* Login / SignUp Links */}
                 <div className="flex gap-2">
