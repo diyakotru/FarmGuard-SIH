@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import { createPortal } from 'react-dom';
+import logo from '../assets/logo.png';
 
 // Make sure to install lucide-react: npm install lucide-react
 import { 
@@ -54,8 +55,13 @@ export const Sidebar = () => {
   return (
     <div className="w-64 bg-white text-[#08202b] flex-col shadow-lg hidden lg:flex">
       {/* ✅ YOUR COLOR is used here for the main title */}
-      <div className="p-6 text-2xl font-bold text-[#0f766e] border-b border-gray-200">
-        {t('farmguard')}
+      <div className="p-6 border-b border-gray-200">
+        <div className="flex items-center space-x-3">
+          <img src={logo} alt="FarmGuard Logo" className="h-8 w-8" />
+          <div className="text-2xl font-bold text-[#0f766e]">
+            {t('farmguard')}
+          </div>
+        </div>
       </div>
       <nav className="flex-1 px-4 py-6">
         {navLinks.map((link, index) => {
